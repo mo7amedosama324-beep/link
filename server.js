@@ -39,17 +39,6 @@ app.use(express.static('public'));
 app.get('/', (req, res) => res.sendFile(require('path').join(__dirname, 'public', 'index.html')));
 app.get('/dashboard', (req, res) => res.sendFile(require('path').join(__dirname, 'public', 'dashboard.html')));
 
-// 404 Handler (must be last)
-app.use((req, res) => {
-  if (req.accepts('html')) {
-    res.status(404).sendFile(require('path').join(__dirname, 'public', '404.html'));
-  } else if (req.accepts('json')) {
-    res.status(404).json({ error: 'Not Found' });
-  } else {
-    res.status(404).type('txt').send('404 Not Found');
-  }
-});
-
 // ==================== COUNCILS ====================
 
 app.get('/api/councils', async (req, res) => {
@@ -125,6 +114,18 @@ app.delete('/api/students/:id', async (req, res) => {
     await Student.findByIdAndDelete(req.params.id);
     res.json({ message: 'Deleted' });
   } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// ==================== 404 HANDLER (MUST BE LAST) ====================
+
+app.use((req, res) => {
+  if (req.accepts('html')) {
+    res.status(404).sendFile(require('path').join(__dirname, 'public', '404.html'));
+  } else if (req.accepts('json')) {
+    res.status(404).json({ error: 'Not Found' });
+  } else {
+    res.status(404).type('txt').send('404 Not Found');
+  }
 });
 
 // ==================== START ====================

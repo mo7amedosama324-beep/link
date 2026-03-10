@@ -65,6 +65,13 @@ body::before {
     letter-spacing: 1px;
 }
 .logo-icon { font-size: 1.8rem; filter: drop-shadow(0 2px 8px rgba(79, 142, 247, 0.4)); }
+
+nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0;
+}
+
 .nav-link {
     display: flex;
     align-items: center;
@@ -372,6 +379,43 @@ td .no-data {
     background: linear-gradient(135deg, #dc2626, #ef4444);
 }
 
+/* SIDEBAR FOOTER */
+.sidebar-footer {
+    margin-top: auto;
+    padding: 20px 15px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+.social-links-sidebar p {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 12px;
+    text-align: center;
+}
+.social-icons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+}
+.social-icons a {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+.social-icons a:hover {
+    color: #4f8ef7;
+    background: rgba(79, 142, 247, 0.15);
+    transform: translateY(-3px);
+}
+
 /* RESPONSIVE */
 @media (max-width: 768px) {
     .sidebar { 
@@ -403,4 +447,8 @@ td .no-data {
     .form-grid { grid-template-columns: 1fr; }
     table { font-size: 0.85rem; }
     th, td { padding: 12px 10px; }
+    .sidebar-footer { padding: 15px 8px; }
+    .social-links-sidebar p { display: none; }
+    .social-icons { flex-direction: column; gap: 8px; }
+    .social-icons a { width: 32px; height: 32px; }
 }
