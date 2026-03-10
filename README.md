@@ -4,17 +4,22 @@
 Link Student Activity Management System - A modern web application for managing student organization members, councils, and leadership roles.
 
 ## Features ✨
-- **Modern Dashboard** - Beautiful dark-themed interface with gradient accents
-- **Member Management** - Track students with roles (Director, Head, Delegate)
-- **Council Management** - Organize teams and departments
-- **Head/Leadership Tracking** - Manage council leaders
-- **Real-time Statistics** - View member counts by role
-- **Search Functionality** - Quick member lookup
-- **Responsive Design** - Works on desktop and mobile
+- **🔐 Authentication & Authorization** - Secure login with JWT tokens
+- **👥 Role-Based Access Control** - Admin, Editor, and Viewer roles
+- **📊 Modern Dashboard** - Beautiful dark-themed interface with gradient accents
+- **👨‍🎓 Member Management** - Track students with roles (Director, Head, Delegate)
+- **🏛️ Council Management** - Organize teams and departments
+- **👑 Head/Leadership Tracking** - Manage council leaders
+- **📈 Real-time Statistics** - View member counts by role
+- **🔍 Search Functionality** - Quick member lookup
+- **📱 Responsive Design** - Works on desktop, tablet, and mobile
+- **🔒 User Management** - Admin panel for user control
 
 ## Tech Stack 🛠️
 - **Backend**: Node.js + Express
-- **Database**: MongoDB Atlas
+- **Database**: MongoDB Atlas (Mongoose ODM)
+- **Authentication**: JWT (jsonwebtoken) + bcryptjs
+- **Session**: Cookie-parser
 - **Frontend**: Vanilla JavaScript, HTML5, CSS3
 - **Fonts**: Poppins (Google Fonts)
 - **Styling**: Custom CSS with modern gradients and animations
@@ -29,9 +34,41 @@ npm install
 
 3. Create a `.env` file:
 ```env
-MONGO_URI=your_mongodb_connection_string
-PORT=3000
+JWT_SECRET=your-secret-key-here
+NODE_ENV=development
 ```
+
+5. Run the development server:
+```bash
+npm run dev
+```
+
+6. Login to the dashboard:
+```
+http://localhost:3000/login
+```
+Use the credentials created in step 4.
+
+7. Access the main site:
+```
+http://localhost:3000
+```
+
+## 🔐 Security & Access Control
+
+### User Roles
+- **🔴 Admin**: Full access + user management
+- **🟡 Editor**: Can add, edit, and delete data
+- **🟢 Viewer**: Read-only access
+
+### Protected Features
+- Dashboard requires authentication
+- Add/Edit/Delete operations require Editor or Admin role
+- User management requires Admin role
+- JWT tokens expire after 7 days
+
+For detailed security documentation, see [SECURITY.md](SECURITY.md)
+5``
 
 4. Run the development server:
 ```bash

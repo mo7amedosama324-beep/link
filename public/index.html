@@ -347,9 +347,201 @@
         /* Smooth Scroll */
         html { scroll-behavior: smooth; }
 
+        /* ========== RESPONSIVE ========== */
+        /* Tablet */
+        @media (max-width: 1024px) {
+            nav {
+                padding: 18px 40px;
+            }
+            h1 {
+                font-size: clamp(2.5rem, 7vw, 5.5rem);
+            }
+            .section {
+                padding: 80px 32px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav { 
+                padding: 16px 24px; 
+            }
+            .nav-btn {
+                padding: 10px 24px;
+                font-size: 0.9rem;
+            }
+            .hero {
+                padding: 100px 20px 50px;
+            }
+            h1 {
+                font-size: clamp(2.2rem, 7vw, 4.5rem);
+            }
+            .hero-sub {
+                font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+                max-width: 90%;
+            }
+            .stats-bar { 
+                gap: 40px;
+                padding: 40px 24px;
+                flex-direction: column;
+            }
+            .stat-num {
+                font-size: 2.2rem;
+            }
+            .section {
+                padding: 70px 24px;
+            }
+            .section-title {
+                font-size: clamp(1.6rem, 4vw, 2.4rem);
+                margin-bottom: 40px;
+            }
+            .cards {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .quote-section {
+                padding: 60px 24px;
+            }
+            blockquote {
+                font-size: clamp(1.2rem, 3vw, 1.7rem);
+            }
+            .cta-section {
+                padding: 80px 24px;
+            }
+        }
+
+        /* Mobile */
         @media (max-width: 600px) {
-            nav { padding: 16px 24px; }
-            .stats-bar { gap: 30px; }
+            nav { 
+                padding: 14px 20px; 
+            }
+            .nav-logo {
+                font-size: 1.3rem;
+            }
+            .nav-btn {
+                padding: 8px 20px;
+                font-size: 0.85rem;
+            }
+            .hero {
+                padding: 90px 16px 40px;
+            }
+            .season-badge {
+                font-size: 0.75rem;
+                padding: 6px 16px;
+            }
+            h1 {
+                font-size: clamp(2rem, 9vw, 3.5rem);
+                margin-bottom: 20px;
+            }
+            .hero-sub {
+                font-size: 0.95rem;
+                margin-bottom: 40px;
+            }
+            .hero-actions {
+                flex-direction: column;
+                gap: 12px;
+                width: 100%;
+                max-width: 300px;
+            }
+            .btn-primary,
+            .btn-outline {
+                padding: 14px 32px;
+                font-size: 0.95rem;
+                width: 100%;
+            }
+            .stats-bar { 
+                gap: 30px;
+                padding: 36px 20px;
+            }
+            .stat-num {
+                font-size: 2rem;
+            }
+            .stat-lbl {
+                font-size: 0.8rem;
+            }
+            .section {
+                padding: 60px 20px;
+            }
+            .section-label {
+                font-size: 0.75rem;
+            }
+            .section-title {
+                font-size: clamp(1.5rem, 6vw, 2rem);
+                margin-bottom: 36px;
+            }
+            .card {
+                padding: 28px 20px;
+            }
+            .card-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 1.3rem;
+            }
+            .card h3 {
+                font-size: 1.05rem;
+            }
+            .card p {
+                font-size: 0.88rem;
+            }
+            .quote-section {
+                padding: 50px 20px;
+            }
+            blockquote {
+                font-size: 1.1rem;
+                line-height: 1.6;
+            }
+            cite {
+                font-size: 0.85rem;
+            }
+            .cta-section {
+                padding: 70px 20px;
+            }
+            .cta-section h2 {
+                font-size: clamp(1.5rem, 6vw, 2.2rem);
+            }
+            .cta-section p {
+                font-size: 0.95rem;
+            }
+            footer {
+                padding: 24px 20px;
+                font-size: 0.85rem;
+            }
+            .blob {
+                filter: blur(60px);
+            }
+            .blob-1 { 
+                width: 350px; 
+                height: 350px; 
+            }
+            .blob-2 { 
+                width: 300px; 
+                height: 300px; 
+            }
+            .blob-3 { 
+                width: 250px; 
+                height: 250px; 
+            }
+        }
+
+        /* Mobile Small */
+        @media (max-width: 400px) {
+            .nav-logo {
+                font-size: 1.2rem;
+            }
+            .nav-btn {
+                padding: 7px 16px;
+                font-size: 0.8rem;
+            }
+            h1 {
+                font-size: clamp(1.8rem, 10vw, 3rem);
+            }
+            .hero-sub {
+                font-size: 0.9rem;
+            }
+            .btn-primary,
+            .btn-outline {
+                padding: 12px 28px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -439,7 +631,8 @@
 
         <div class="hero-actions">
             <a href="/dashboard" class="btn-primary">Enter Dashboard</a>
-            <a href="#about" class="btn-outline">Learn More</a>
+            <a href="/signup" class="btn-outline" style="margin-left: 15px;">Sign Up</a>
+            <a href="#about" class="btn-outline" style="margin-left: 15px;">Learn More</a>
         </div>
     </section>
 

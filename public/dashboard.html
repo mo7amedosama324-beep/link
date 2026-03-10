@@ -10,6 +10,16 @@
 </head>
 <body>
 
+    <!-- Mobile Menu Toggle -->
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
     <div class="sidebar">
         <div class="logo">
             <a href="/" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:12px;">
@@ -33,6 +43,10 @@
             <a href="#" class="nav-link" data-tab="heads">
                 <span>👑</span>
                 <span>Heads</span>
+            </a>
+            <a href="#" class="nav-link" data-tab="users" id="usersTab" style="display: none;">
+                <span>🔐</span>
+                <span>Users</span>
             </a>
         </nav>
         <div class="sidebar-footer">
@@ -151,9 +165,51 @@
             </div>
         </div>
 
+        <!-- USERS TAB (Admin Only) -->
+        <div id="tab-users" class="tab-content">
+            <div class="card">
+                <h2>✨ Add New User</h2>
+                <form id="addUserForm" class="form-grid">
+                    <input type="text" id="uUsername" placeholder="Username" required minlength="3">
+                    <input type="password" id="uPassword" placeholder="Password" required minlength="6">
+                    <input type="text" id="uName" placeholder="Full Name (optional)">
+                    <select id="uRole" required>
+                        <option value="">-- Select Role --</option>
+                        <option value="admin">🔴 Admin (Full Access)</option>
+                        <option value="editor">🟡 Editor (Can Add/Edit/Delete)</option>
+                        <option value="viewer">🟢 Viewer (Read Only)</option>
+                    </select>
+                    <button type="submit" class="btn-full">➕ Create User</button>
+                    <div id="userFormError" style="grid-column: 1/-1; color: #f87171; font-size: 0.9rem; display: none; background: rgba(220, 38, 38, 0.15); padding: 12px; border-radius: 8px; border: 1px solid rgba(220, 38, 38, 0.3);"></div>
+                </form>
+            </div>
+            <div class="card">
+                <h2>🔐 Users List</h2>
+                <div style="background: rgba(167, 139, 250, 0.1); border: 1px solid rgba(167, 139, 250, 0.2); border-radius: 12px; padding: 14px; margin-bottom: 20px; font-size: 0.85rem; color: rgba(255,255,255,0.8);">
+                    <strong>Role Permissions:</strong><br>
+                    🔴 <strong>Admin:</strong> Full access + user management<br>
+                    🟡 <strong>Editor:</strong> Can add, edit, and delete data<br>
+                    🟢 <strong>Viewer:</strong> Read-only access
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersBody"></tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
 
     <div id="toast" class="toast"></div>
-    <script src="app.js?v=5"></script>
+    <script src="app.js?v=6"></script>
 </body>
 </html>
