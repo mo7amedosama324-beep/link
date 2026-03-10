@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | Link Activity</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0a0f1e;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.2; animation: float 8s ease-in-out infinite; }
+        .blob-1 { width: 400px; height: 400px; background: #4f8ef7; top: -100px; left: -100px; }
+        .blob-2 { width: 350px; height: 350px; background: #a78bfa; bottom: -80px; right: -80px; animation-delay: 3s; }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-30px); } }
+        .container { text-align: center; z-index: 1; position: relative; padding: 40px; }
+        .error-code { 
+            font-size: clamp(8rem, 20vw, 15rem); 
+            font-weight: 900; 
+            background: linear-gradient(135deg, #4f8ef7, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        h1 { font-size: clamp(1.5rem, 4vw, 2.5rem); margin-bottom: 15px; font-weight: 700; }
+        p { font-size: clamp(1rem, 2vw, 1.2rem); color: rgba(255,255,255,0.6); margin-bottom: 40px; max-width: 500px; margin-left: auto; margin-right: auto; }
+        .links { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 14px 32px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #4f8ef7, #a78bfa);
+            color: white;
+            box-shadow: 0 8px 24px rgba(79, 142, 247, 0.3);
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(79, 142, 247, 0.4); }
+        .btn-outline {
+            border: 2px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.9);
+        }
+        .btn-outline:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.05); }
+        .emoji { display: inline-block; animation: wave 2s ease-in-out infinite; }
+        @keyframes wave { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-15deg); } 75% { transform: rotate(15deg); } }
+    </style>
+</head>
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    
+    <div class="container">
+        <div class="error-code">404</div>
+        <h1>Page Not Found <span class="emoji">🔍</span></h1>
+        <p>Oops! The page you're looking for doesn't exist. It might have been moved or deleted.</p>
+        <div class="links">
+            <a href="/" class="btn btn-primary">🏠 Go Home</a>
+            <a href="/dashboard" class="btn btn-outline">📊 Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

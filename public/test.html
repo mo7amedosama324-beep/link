@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Test</title>
+</head>
+<body>
+    <h1>Debug Test</h1>
+    <div id="output"></div>
+    <script>
+        async function test() {
+            try {
+                const response = await fetch('/api/students');
+                const data = await response.json();
+                document.getElementById('output').innerHTML = `
+                    <h2>Students Data:</h2>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                    <p>Count: ${data.length}</p>
+                `;
+            } catch (error) {
+                document.getElementById('output').innerHTML = `<p style="color:red">Error: ${error.message}</p>`;
+            }
+        }
+        test();
+    </script>
+</body>
+</html>

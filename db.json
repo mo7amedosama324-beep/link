@@ -1,0 +1,15 @@
+{
+  "students": [
+    {
+      "_id": "90797ae1-df58-483c-a2ec-a71f85f650d7",
+      "name": "Mohamed osama",
+      "studentId": "1",
+      "role": "Head",
+      "councilId": null,
+      "headId": null,
+      "createdAt": "2026-03-10T02:46:32.516Z"
+    }
+  ],
+  "councils": [],
+  "heads": []
+}

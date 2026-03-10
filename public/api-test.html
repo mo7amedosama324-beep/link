@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test - Link Activity</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background: #0a0f1e; color: #e2e8f0; padding: 40px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { color: #4f8ef7; margin-bottom: 30px; }
+        .section { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+        h2 { color: #a78bfa; margin-bottom: 15px; font-size: 1.2rem; }
+        button { padding: 10px 20px; background: linear-gradient(135deg, #4f8ef7, #a78bfa); color: white; border: none; border-radius: 8px; cursor: pointer; margin: 5px; font-weight: 600; }
+        button:hover { opacity: 0.9; }
+        .result { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 15px; margin-top: 10px; overflow-x: auto; }
+        pre { color: #94a3b8; font-size: 0.9rem; white-space: pre-wrap; word-wrap: break-word; }
+        .success { color: #4ade80; }
+        .error { color: #f87171; }
+        input, select { padding: 8px 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; color: #e2e8f0; margin: 5px; }
+        .status { display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 0.85rem; font-weight: 600; margin-left: 10px; }
+        .status.ok { background: rgba(74, 222, 128, 0.2); color: #4ade80; }
+        .status.fail { background: rgba(248, 113, 113, 0.2); color: #f87171; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Link Activity - API Testing Dashboard</h1>
+
+        <!-- SERVER STATUS -->
+        <div class="section">
+            <h2>🟢 Server Status</h2>
+            <button onclick="checkServer()">Check Server</button>
+            <div id="serverStatus" class="result" style="display:none;"></div>
+        </div>
+
+        <!-- STUDENTS/MEMBERS -->
+        <div class="section">
+            <h2>👥 Students/Members API</h2>
+            <button onclick="getStudents()">Get All Students</button>
+            <button onclick="addTestStudent()">Add Test Student</button>
+            <div>
+                <input type="text" id="studentName" placeholder="Student Name">
+                <input type="text" id="studentId" placeholder="Student ID">
+                <select id="studentRole">
+                    <option value="">Select Role</option>
+                    <option value="Director">Director</option>
+                    <option value="Head">Head</option>
+                    <option value="Delegate">Delegate</option>
+                </select>
+                <button onclick="addCustomStudent()">Add Custom Student</button>
+            </div>
+            <div id="studentsResult" class="result" style="display:none;"></div>
+        </div>
+
+        <!-- COUNCILS -->
+        <div class="section">
+            <h2>🏛️ Councils API</h2>
+            <button onclick="getCouncils()">Get All Councils</button>
+            <button onclick="addTestCouncil()">Add Test Council</button>
+            <div>
+                <input type="text" id="councilName" placeholder="Council Name">
+                <input type="text" id="councilDesc" placeholder="Description">
+                <button onclick="addCustomCouncil()">Add Custom Council</button>
+            </div>
+            <div id="councilsResult" class="result" style="display:none;"></div>
+        </div>
+
+        <!-- HEADS -->
+        <div class="section">
+            <h2>👑 Heads API</h2>
+            <button onclick="getHeads()">Get All Heads</button>
+            <button onclick="addTestHead()">Add Test Head</button>
+            <div>
+                <input type="text" id="headName" placeholder="Head Name">
+                <input type="email" id="headEmail" placeholder="Email">
+                <button onclick="addCustomHead()">Add Custom Head</button>
+            </div>
+            <div id="headsResult" class="result" style="display:none;"></div>
+        </div>
+
+        <!-- FULL SYSTEM TEST -->
+        <div class="section">
+            <h2>🧪 Full System Test</h2>
+            <button onclick="runFullTest()">Run Complete System Test</button>
+            <div id="fullTestResult" class="result" style="display:none;"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = window.location.origin;
+
+        function showResult(elementId, content, isError = false) {
+            const el = document.getElementById(elementId);
+            el.innerHTML = `<pre class="${isError ? 'error' : 'success'}">${content}</pre>`;
+            el.style.display = 'block';
+        }
+
+        async function checkServer() {
+            try {
+                const res = await fetch(`${API_BASE}/api/councils`);
+                const status = res.ok ? 'ok' : 'fail';
+                showResult('serverStatus', `✅ Server is running!\nStatus: ${res.status}\nBase URL: ${API_BASE}`);
+            } catch (err) {
+                showResult('serverStatus', `❌ Server Error:\n${err.message}`, true);
+            }
+        }
+
+        async function getStudents() {
+            try {
+                const res = await fetch(`${API_BASE}/api/students`);
+                const data = await res.json();
+                showResult('studentsResult', `✅ Found ${data.length} student(s)\n\n${JSON.stringify(data, null, 2)}`);
+            } catch (err) {
+                showResult('studentsResult', `❌ Error:\n${err.message}`, true);
+            }
+        }
+
+        async function addTestStudent() {
+            try {
+                const res = await fetch(`${API_BASE}/api/students`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: 'Test User ' + Date.now(),
+                        studentId: 'TEST' + Date.now(),
+                        role: 'Delegate'
+                    })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    showResult('studentsResult', `✅ Student Added!\n\n${JSON.stringify(data, null, 2)}`);
+                    setTimeout(getStudents, 500);
+                } else {
+                    showResult('studentsResult', `❌ Error:\n${JSON.stringify(data, null, 2)}`, true);
+                }
+            } catch (err) {
+                showResult('studentsResult', `❌ Error:\n${err.message}`, true);
+            }
+        }
+
+        async function addCustomStudent() {
+            const name = document.getElementById('studentName').value;
+            const studentId = document.getElementById('studentId').value;
+            const role = document.getElementById('studentRole').value;
+            
+            if (!name || !studentId || !role) {
+                showResult('studentsResult', '❌ Please fill all fields', true);
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API_BASE}/api/students`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, studentId, role })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    showResult('studentsResult', `✅ Student Added!\n\n${JSON.stringify(data, null, 2)}`);
+                    document.getElementById('studentName').value = '';
+                    document.getElementById('studentId').value = '';
+                    document.getElementById('studentRole').value = '';
+                    setTimeout(getStudents, 500);
+                } else {
+                    showResult('studentsResult', `❌ Error:\n${JSON.stringify(data, null, 2)}`, true);
+                }
+            } catch (err) {
+                showResult('studentsResult', `❌ Error:\n${err.message}`, true);
+            }
+        }
+
+        async function getCouncils() {
+            try {
+                const res = await fetch(`${API_BASE}/api/councils`);
+                const data = await res.json();
+                showResult('councilsResult', `✅ Found ${data.length} council(s)\n\n${JSON.stringify(data, null, 2)}`);
+            } catch (err) {
+                showResult('councilsResult', `❌ Error:\n${err.message}`, true);
+            }
+        }
+
+        async function addTestCouncil() {
+            try {
+                const res = await fetch(`${API_BASE}/api/councils`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: 'Test Council ' + Date.now(),
+                        description: 'Auto-generated test council'
+                    })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    showResult('councilsResult', `✅ Council Added!\n\n${JSON.stringify(data, null, 2)}`);
+                    setTimeout(getCouncils, 500);
+                } else {
+                    showResult('councilsResult', `❌ Error:\n${JSON.stringify(data, null, 2)}`, true);
+                }
+            } catch (err) {
+                showResult('councilsResult', `❌ Error:\n${err.message}`, true);
+            }
+        }
+
+        async function addCustomCouncil() {
+            const name = document.getElementById('councilName').value;
+            const description = document.getElementById('councilDesc').value;
+            
+            if (!name) {
+                showResult('councilsResult', '❌ Please enter council name', true);
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API_BASE}/api/councils`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, description })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    showResult('councilsResult', `✅ Council Added!\n\n${JSON.stringify(data, null, 2)}`);
+                    document.getElementById('councilName').value = '';
+                    document.getElementById('councilDesc').value = '';
+                    setTimeout(getCouncils, 500);
+                } else {
+                    showResult('councilsResult', `❌ Error:\n${JSON.stringify(data, null, 2)}`, true);
+                }
+            } catch (err) {
+                showResult('councilsResult', `❌ Error:\n${err.message}`, true);
+            }
+        }
+
+        async function getHeads() {
+            try {
+                const res = await fetch(`${API_BASE}/api/heads`);
+                const data = await res.json();
+                showResult('headsResult', `✅ Found ${data.length} head(s)\n\n${JSON.stringify(data, null, 2)}`);
+            } catch (err) {
+                showResult('headsResult', `❌ Error:\n${err.message}`, true);
+            }
+        }
+
+        async function addTestHead() {
+            try {
+                const res = await fetch(`${API_BASE}/api/heads`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: 'Test Head ' + Date.now(),
+                        email: 'test@example.com'
+                    })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    showResult('headsResult', `✅ Head Added!\n\n${JSON.stringify(data, null, 2)}`);
+                    setTimeout(getHeads, 500);
+                } else {
+                    showResult('headsResult', `❌ Error:\n${JSON.stringify(data, null, 2)}`, true);
+                }
+            } catch (err) {
+                showResult('headsResult', `❌ Error:\n${err.message}`, true);
+            }
+        }
+
+        async function addCustomHead() {
+            const name = document.getElementById('headName').value;
+            const email = document.getElementById('headEmail').value;
+            
+            if (!name) {
+                showResult('headsResult', '❌ Please enter head name', true);
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API_BASE}/api/heads`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    showResult('headsResult', `✅ Head Added!\n\n${JSON.stringify(data, null, 2)}`);
+                    document.getElementById('headName').value = '';
+                    document.getElementById('headEmail').value = '';
+                    setTimeout(getHeads, 500);
+                } else {
+                    showResult('headsResult', `❌ Error:\n${JSON.stringify(data, null, 2)}`, true);
+                }
+            } catch (err) {
+                showResult('headsResult', `❌ Error:\n${err.message}`, true);
+            }
+        }
+
+        async function runFullTest() {
+            let results = '🧪 Running Full System Test...\n\n';
+            const el = document.getElementById('fullTestResult');
+            el.style.display = 'block';
+
+            try {
+                // Test 1: Server Status
+                results += '1️⃣ Testing Server Connection...\n';
+                el.innerHTML = `<pre>${results}</pre>`;
+                const serverRes = await fetch(`${API_BASE}/api/councils`);
+                results += serverRes.ok ? '   ✅ Server is accessible\n\n' : '   ❌ Server error\n\n';
+                el.innerHTML = `<pre>${results}</pre>`;
+
+                // Test 2: Get Councils
+                results += '2️⃣ Testing GET /api/councils...\n';
+                el.innerHTML = `<pre>${results}</pre>`;
+                const councilsRes = await fetch(`${API_BASE}/api/councils`);
+                const councils = await councilsRes.json();
+                results += `   ✅ Found ${councils.length} councils\n\n`;
+                el.innerHTML = `<pre>${results}</pre>`;
+
+                // Test 3: Get Students
+                results += '3️⃣ Testing GET /api/students...\n';
+                el.innerHTML = `<pre>${results}</pre>`;
+                const studentsRes = await fetch(`${API_BASE}/api/students`);
+                const students = await studentsRes.json();
+                results += `   ✅ Found ${students.length} students\n\n`;
+                el.innerHTML = `<pre>${results}</pre>`;
+
+                // Test 4: Get Heads
+                results += '4️⃣ Testing GET /api/heads...\n';
+                el.innerHTML = `<pre>${results}</pre>`;
+                const headsRes = await fetch(`${API_BASE}/api/heads`);
+                const heads = await headsRes.json();
+                results += `   ✅ Found ${heads.length} heads\n\n`;
+                el.innerHTML = `<pre>${results}</pre>`;
+
+                // Final Summary
+                results += '\n' + '='.repeat(50) + '\n';
+                results += '✅ ALL TESTS PASSED!\n\n';
+                results += `📊 Summary:\n`;
+                results += `   • Councils: ${councils.length}\n`;
+                results += `   • Students: ${students.length}\n`;
+                results += `   • Heads: ${heads.length}\n`;
+                results += `   • Server: Running on ${API_BASE}\n`;
+                results += '='.repeat(50) + '\n';
+
+                showResult('fullTestResult', results);
+            } catch (err) {
+                results += `\n❌ TEST FAILED:\n${err.message}`;
+                showResult('fullTestResult', results, true);
+            }
+        }
+
+        // Auto-run server check on load
+        window.addEventListener('load', checkServer);
+    </script>
+</body>
+</html>

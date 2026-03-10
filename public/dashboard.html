@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Link Student Activity</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="logo">
+            <a href="/" style="text-decoration:none;color:inherit;display:flex;align-items:center;gap:12px;">
+                <span class="logo-icon">🔗</span>
+                <span>LINK</span>
+            </a>
+        </div>
+        <nav>
+            <a href="#" class="nav-link active" data-tab="dashboard">
+                <span>📊</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="nav-link" data-tab="students">
+                <span>👥</span>
+                <span>Members</span>
+            </a>
+            <a href="#" class="nav-link" data-tab="councils">
+                <span>🏛️</span>
+                <span>Councils</span>
+            </a>
+            <a href="#" class="nav-link" data-tab="heads">
+                <span>👑</span>
+                <span>Heads</span>
+            </a>
+        </nav>
+    </div>
+
+    <div class="main">
+        <header>
+            <h1 id="pageTitle">Dashboard</h1>
+        </header>
+
+        <!-- DASHBOARD TAB -->
+        <div id="tab-dashboard" class="tab-content active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="statStudents">0</div>
+                    <div class="stat-label">Total Members</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statDirectors">0</div>
+                    <div class="stat-label">Directors</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statRoleHeads">0</div>
+                    <div class="stat-label">Heads</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statDelegates">0</div>
+                    <div class="stat-label">Delegates</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statCouncils">0</div>
+                    <div class="stat-label">Councils</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STUDENTS TAB -->
+        <div id="tab-students" class="tab-content">
+            <div class="card">
+                <h2>✨ Add New Member</h2>
+                <form id="addStudentForm" class="form-grid">
+                    <input type="text" id="sName" placeholder="Member Name" required>
+                    <input type="text" id="sId" placeholder="Member ID" required>
+                    <select id="sRole" required>
+                        <option value="">-- Select Role --</option>
+                        <option value="Director">🔷 Director</option>
+                        <option value="Head">🔶 Head</option>
+                        <option value="Delegate">🔹 Delegate</option>
+                    </select>
+                    <select id="sCouncil"><option value="">-- Select Council (optional) --</option></select>
+                    <div id="formError" style="grid-column:1/-1;color:#f87171;font-size:0.88rem;display:none;"></div>
+                    <button type="submit" class="btn-full">➕ Add Member</button>
+                </form>
+            </div>
+            <div class="card">
+                <h2>👥 Members List</h2>
+                <input type="text" id="searchStudent" placeholder="🔍 Search by name or ID..." class="search-box">
+                <table>
+                    <thead><tr><th>Name</th><th>ID</th><th>Role</th><th>Council</th><th>Date</th><th>Action</th></tr></thead>
+                    <tbody id="studentsBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- COUNCILS TAB -->
+        <div id="tab-councils" class="tab-content">
+            <div class="card">
+                <h2>✨ Add New Council</h2>
+                <form id="addCouncilForm" class="form-grid">
+                    <input type="text" id="cName" placeholder="Council Name (e.g. HR, PR, Media)" required>
+                    <input type="text" id="cDesc" placeholder="Description (optional)">
+                    <button type="submit" class="btn-full">➕ Add Council</button>
+                </form>
+            </div>
+            <div class="card">
+                <h2>🏛️ Councils List</h2>
+                <table>
+                    <thead><tr><th>Name</th><th>Description</th><th>Date</th><th>Action</th></tr></thead>
+                    <tbody id="councilsBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- HEADS TAB -->
+        <div id="tab-heads" class="tab-content">
+            <div class="card">
+                <h2>✨ Add New Head</h2>
+                <form id="addHeadForm" class="form-grid">
+                    <input type="text" id="hName" placeholder="Head Name" required>
+                    <input type="email" id="hEmail" placeholder="Email (optional)">
+                    <select id="hCouncil"><option value="">-- Select Council --</option></select>
+                    <button type="submit" class="btn-full">➕ Add Head</button>
+                </form>
+            </div>
+            <div class="card">
+                <h2>👑 Heads List</h2>
+                <table>
+                    <thead><tr><th>Name</th><th>Email</th><th>Council</th><th>Action</th></tr></thead>
+                    <tbody id="headsBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="toast" class="toast"></div>
+    <script src="app.js?v=4"></script>
+</body>
+</html>

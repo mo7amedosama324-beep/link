@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Student Activity - Season 09</title>
+    <meta name="description" content="Link Student Activity - Where Passion Meets Purpose. Join us in Season 09 for real education, real effort, and real impact.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0a0f1e;
+            color: white;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: 
+                radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                    rgba(79, 142, 247, 0.12), 
+                    transparent 40%);
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        /* ========== NAVBAR ========== */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(10, 15, 30, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            transition: all 0.3s ease;
+        }
+        nav.scrolled {
+            padding: 16px 60px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .nav-logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #4f8ef7, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .nav-logo:hover { transform: scale(1.05); }
+        .nav-btn {
+            padding: 12px 32px;
+            background: linear-gradient(135deg, #4f8ef7, #a78bfa);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(79, 142, 247, 0.3);
+        }
+        .nav-btn:hover { 
+            opacity: 0.9; 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 142, 247, 0.4);
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 20px 60px;
+            position: relative;
+        }
+
+        /* animated background blobs */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.25;
+            animation: float 8s ease-in-out infinite;
+        }
+        .blob-1 { width: 500px; height: 500px; background: #4f8ef7; top: -100px; left: -150px; animation-delay: 0s; }
+        .blob-2 { width: 400px; height: 400px; background: #a78bfa; bottom: 0; right: -100px; animation-delay: 3s; }
+        .blob-3 { width: 300px; height: 300px; background: #38bdf8; top: 40%; left: 40%; animation-delay: 5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-30px) scale(1.05); }
+        }
+
+        .season-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 22px;
+            border: 1px solid rgba(167, 139, 250, 0.5);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: #a78bfa;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 30px;
+            background: rgba(167, 139, 250, 0.08);
+            animation: fadeDown 0.8s ease forwards;
+        }
+        .season-badge span { width: 8px; height: 8px; background: #a78bfa; border-radius: 50%; animation: pulse 1.5s infinite; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.4); }
+        }
+
+        h1 {
+            font-size: clamp(3rem, 8vw, 6.5rem);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+            animation: fadeUp 0.9s ease 0.2s both;
+        }
+        h1 .gradient {
+            background: linear-gradient(135deg, #4f8ef7 0%, #a78bfa 50%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-sub {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: rgba(255,255,255,0.6);
+            max-width: 580px;
+            line-height: 1.8;
+            margin-bottom: 50px;
+            font-weight: 300;
+            animation: fadeUp 0.9s ease 0.4s both;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeUp 0.9s ease 0.6s both;
+        }
+        .btn-primary {
+            padding: 16px 40px;
+            background: linear-gradient(135deg, #4f8ef7, #a78bfa);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 8px 30px rgba(79, 142, 247, 0.35);
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(79, 142, 247, 0.5); }
+
+        .btn-outline {
+            padding: 16px 40px;
+            background: transparent;
+            border: 1.5px solid rgba(255,255,255,0.2);
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .btn-outline:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.05); }
+
+        /* ========== STATS ========== */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            padding: 50px 40px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            background: rgba(255,255,255,0.02);
+            animation: fadeUp 0.9s ease 0.8s both;
+        }
+        .stat { text-align: center; }
+        .stat-num {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #4f8ef7, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stat-lbl { color: rgba(255,255,255,0.45); font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+
+        /* ========== FEATURES ========== */
+        .section { padding: 100px 40px; max-width: 1100px; margin: 0 auto; }
+        .section-label {
+            text-align: center;
+            color: #a78bfa;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .section-title {
+            text-align: center;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            margin-bottom: 60px;
+            line-height: 1.2;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        .card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 36px 28px;
+            transition: transform 0.3s, border-color 0.3s, background 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(167, 139, 250, 0.3);
+            background: rgba(167, 139, 250, 0.06);
+        }
+        .card-icon {
+            width: 54px; height: 54px;
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, rgba(79,142,247,0.2), rgba(167,139,250,0.2));
+        }
+        .card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; }
+        .card p { color: rgba(255,255,255,0.5); font-size: 0.92rem; line-height: 1.7; font-weight: 300; }
+
+        /* ========== QUOTE ========== */
+        .quote-section {
+            padding: 80px 40px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(79,142,247,0.08), rgba(167,139,250,0.08));
+            border-top: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        blockquote {
+            font-size: clamp(1.3rem, 3vw, 2rem);
+            font-weight: 700;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            line-height: 1.5;
+            color: rgba(255,255,255,0.9);
+        }
+        blockquote span {
+            background: linear-gradient(135deg, #4f8ef7, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        cite { color: rgba(255,255,255,0.35); font-size: 0.9rem; font-style: normal; }
+
+        /* ========== CTA ========== */
+        .cta-section {
+            padding: 100px 40px;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .cta-section h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; margin-bottom: 16px; }
+        .cta-section p { color: rgba(255,255,255,0.5); margin-bottom: 40px; font-size: 1.05rem; }
+
+        /* ========== FOOTER ========== */
+        footer {
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.25);
+            font-size: 0.85rem;
+        }
+        footer span {
+            background: linear-gradient(135deg, #4f8ef7, #a78bfa);
+            -webkit-background-clip: text;
+        /* Smooth Scroll */
+        html { scroll-behavior: smooth; }
+
+        @media (max-width: 600px) {
+            nav { padding: 16px 24px; }
+            .stats-bar { gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <script>
+        // Mouse tracking for glow effect
+        document.addEventListener('mousemove', (e) => {
+            document.body.style.setProperty('--mouse-x', e.clientX + 'px');
+            document.body.style.setProperty('--mouse-y', e.clientY + 'px');
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.card, .stat').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        });
+    </script       to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            nav { padding: 16px 24px; }
+            .stats-bar { gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="nav-logo">LINK</div>
+        <a href="/dashboard" class="nav-btn">Dashboard →</a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+
+        <div class="season-badge">
+            <span></span>
+            Season 09 — Now Live
+        </div>
+
+        <h1>
+            Where Passion<br>Meets <span class="gradient">Purpose</span>
+        </h1>
+
+        <p class="hero-sub">
+            Link Student Activity is more than a team —
+            it's a movement built on real education, real effort,
+            and real people who believe that what they do <em>actually matters.</em>
+        </p>
+
+        <div class="hero-actions">
+            <a href="/dashboard" class="btn-primary">Enter Dashboard</a>
+            <a href="#about" class="btn-outline">Learn More</a>
+        </div>
+    </section>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+        <div class="stat">
+            <div class="stat-num">09</div>
+            <div class="stat-lbl">Seasons Strong</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">∞</div>
+            <div class="stat-lbl">Passion & Drive</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">1</div>
+            <div class="stat-lbl">Vision</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">100%</div>
+            <div class="stat-lbl">Commitment</div>
+        </div>
+    </div>
+
+    <!-- ABOUT / FEATURES -->
+    <div id="about" class="section">
+        <p class="section-label">What We Stand For</p>
+        <h2 class="section-title">Built Different.<br>Built to Last.</h2>
+
+        <div class="cards">
+            <div class="card">
+                <div class="card-icon">📚</div>
+                <h3>Real Education</h3>
+                <p>We believe learning doesn't stop in the classroom. Every project, event, and meeting is a lesson in disguise. We grow by doing.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🔥</div>
+                <h3>Season 9 Energy</h3>
+                <p>Nine seasons of relentless work, countless memories, and a community that keeps showing up. Season 9 is our boldest chapter yet.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🤝</div>
+                <h3>Team First</h3>
+                <p>From Delegates to Directors — every role matters. We don't just fill positions, we build leaders who carry the mission forward.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🎯</div>
+                <h3>Work That Counts</h3>
+                <p>No shortcuts. No empty promises. We put in the hours because we know that real results come from real effort. Always.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">💡</div>
+                <h3>Ideas Into Action</h3>
+                <p>Link is the place where your ideas get a stage. We turn ambition into events, thoughts into campaigns, and students into changemakers.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🌟</div>
+                <h3>Legacy in Progress</h3>
+                <p>Every member who passes through Link leaves something behind. A standard. A memory. A piece of something bigger than themselves.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- QUOTE -->
+    <div class="quote-section">
+        <blockquote>
+            "We don't do this for the title.<br>
+            We do it because <span>the work means something.</span>"
+        </blockquote>
+        <cite>— Link Student Activity, Season 09</cite>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+        <h2>Ready to be part of the story?</h2>
+        <p>Season 9 is already writing itself. Log in to the dashboard and see what the team is building.</p>
+        <a href="/dashboard" class="btn-primary">Go to Dashboard →</a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 <span>Link Student Activity</span> — Season 09 · All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
